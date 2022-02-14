@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import './overlay.css';
 
-function App() {
+function Overlay() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("/api")
+    fetch("/api/overlay")
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
@@ -22,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default Overlay;

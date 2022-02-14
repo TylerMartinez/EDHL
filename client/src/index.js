@@ -1,12 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Operator from './operator/operator';
+import Overlay from './overlay/overlay';
 import reportWebVitals from './reportWebVitals';
+
+function renderApp() {
+  if(window.location.pathname == '/overlay')
+     return <Overlay/>;
+
+  if(window.location.pathname == '/operator')
+     return <Operator/>;
+  
+  return <p>fuck</p>;
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    { renderApp() }
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -4,8 +4,8 @@
   "description": "An overlay generator based on a Google Sheet ran EDH League meant to be used by OBS streams/recordings",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/index.js",
-    "start": "npm run build && nodemon server/index.js",
+    "dev": "nodemon server/app.js",
+    "start": "npm run build && nodemon server/app.js",
     "build": "cd client && npm install && npm run build"
   },
   "engines": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/TylerMartinez/EDHL-Overlay#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "ws": "^8.5.0"
   }
 }
