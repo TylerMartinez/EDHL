@@ -15,7 +15,7 @@ function Overlay() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>LMAO</p>
+        <p>Done</p>
         <p>{!data ? "Loading..." : data}</p>
       </header>
     </div>

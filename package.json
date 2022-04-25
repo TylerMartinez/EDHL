@@ -4,9 +4,11 @@
   "description": "An overlay generator based on a Google Sheet ran EDH League meant to be used by OBS streams/recordings",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/app.js",
-    "start": "npm run build && nodemon server/app.js",
-    "build": "cd client && npm install && npm run build"
+    "dev": "cross-env-shell NODE_ENV=development \"npm run build && npm-run-all -p server watch\"",
+    "start": "npm run build && npm run server",
+    "build": "cd client && npm install && npm run build",
+    "server": "nodemon --ignore client server/app.js",
+    "watch": "cd client && npm run watch"
   },
   "engines": {
     "node": "16.14.0"
@@ -25,5 +27,11 @@
   "dependencies": {
     "express": "^4.17.2",
     "ws": "^8.5.0"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "cross-env": "^7.0.3",
+    "livereload": "^0.9.3",
+    "npm-run-all": "^4.1.5"
   }
 }
