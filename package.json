@@ -25,12 +25,19 @@
   },
   "homepage": "https://github.com/TylerMartinez/EDHL-Overlay#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "ws": "^8.5.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
     "cross-env": "^7.0.3",
+    "eslint": "^8.14.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.29.4",
     "livereload": "^0.9.3",
     "npm-run-all": "^4.1.5"
   }
