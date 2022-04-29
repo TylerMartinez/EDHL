@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Operator from './operator/operator';
 import Overlay from './overlay/overlay';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals'; 
 
 function renderApp() {
-  if(window.location.pathname == '/overlay')
+  if(window.location.pathname === '/overlay')
      return <Overlay/>;
 
-  if(window.location.pathname == '/operator')
+  if(window.location.pathname === '/operator')
      return <Operator/>;
   
   return <p>fuck</p>;

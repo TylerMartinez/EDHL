@@ -16,6 +16,9 @@ const maxConnections = parseInt(process.env.MAX_CONNECTIONS)
 const clients = {}
 const userNames = {}
 
+// Variable
+let overlay = null
+
 // Start up expess
 const app = express()
 
@@ -55,11 +58,17 @@ const server = app.listen(PORT, () => {
 const wsServer = new ws.Server({ noServer: true })
 
 // Configue websocket requests
-wsServer.on('connection', (socket, userName) => {
+wsServer.on('connection', (socket, userName, isOverlay) => {
   // Generate an ID and save it
   const userID = wsHandler.getUniqueID()
-  clients[userID] = socket
-  userNames[userID] = userName
+
+  // Save the connection
+  if (isOverlay) {
+    overlay = socket
+  } else {
+    clients[userID] = socket
+    userNames[userID] = userName
+  }
 
   console.log('connected: ' + userID + ': ' + userNames[userID] + ' in ' + Object.getOwnPropertyNames(clients))
 
@@ -70,16 +79,20 @@ wsServer.on('connection', (socket, userName) => {
   socket.on('close', function () {
     console.log((new Date()) + ' Peer ' + userID + ': ' + userNames[userID] + ' disconnected.')
 
-    delete clients[userID]
-    delete userNames[userID]
+    if (isOverlay) {
+      overlay = null
+    } else {
+      delete clients[userID]
+      delete userNames[userID]
+    }
   })
 })
 
 // Handle websocket connections
 server.on('upgrade', (request, socket, head) => {
-  // Refuse request if we are at max connections
+  // Refuse request if we are at max connections or overlay is already connected
   const currentConnections = Object.keys(clients).length
-  if (currentConnections >= maxConnections) {
+  if (currentConnections >= maxConnections || overlay !== null) {
     return
   };
 
@@ -88,14 +101,14 @@ server.on('upgrade', (request, socket, head) => {
   const params = url.parse(request.url, true).query
 
   // Require username
-  if (!params.username) {
+  if (!params.username && !params.ok) {
     return
   };
 
   // Accept connection if they pass this weak ass check
   if (params && params.pw === process.env.DEVPW) {
     wsServer.handleUpgrade(request, socket, head, (socket) => {
-      wsServer.emit('connection', socket, params.username)
+      wsServer.emit('connection', socket, params.username, params.ok = process.env.OVERLAY_KEY)
     })
   }
 })
