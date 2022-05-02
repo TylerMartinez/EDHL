@@ -4,7 +4,15 @@ import './index.css';
 import Operator from './operator/operator';
 import Overlay from './overlay/overlay';
 import reportWebVitals from './reportWebVitals'; 
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import baseTheme from './themes/base_theme';
 
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${props => props.theme.bg1};
+  }
+`
 function renderApp() {
   if(window.location.pathname === '/overlay')
      return <Overlay/>;
@@ -17,7 +25,10 @@ function renderApp() {
 
 ReactDOM.render(
   <React.StrictMode>
-    { renderApp() }
+    <ThemeProvider theme={baseTheme}>
+      <GlobalStyle/>
+      { renderApp() }
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
