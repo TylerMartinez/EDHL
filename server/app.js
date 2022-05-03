@@ -90,12 +90,6 @@ wsServer.on('connection', (socket, userName, isOverlay) => {
 
 // Handle websocket connections
 server.on('upgrade', (request, socket, head) => {
-  // Refuse request if we are at max connections or overlay is already connected
-  const currentConnections = Object.keys(clients).length
-  if (currentConnections >= maxConnections || overlay !== null) {
-    return
-  };
-
   // Parse Query params
   // eslint-disable-next-line n/no-deprecated-api
   const params = url.parse(request.url, true).query
@@ -105,10 +99,16 @@ server.on('upgrade', (request, socket, head) => {
     return
   };
 
+  // Refuse request if we are at max connections or overlay is already connected
+  const currentConnections = Object.keys(clients).length
+  if ((params.userName && currentConnections >= maxConnections) || (params.ok && (overlay !== null))) {
+    return
+  };
+
   // Accept connection if they pass this weak ass check
   if (params && params.pw === process.env.DEVPW) {
     wsServer.handleUpgrade(request, socket, head, (socket) => {
-      wsServer.emit('connection', socket, params.username, params.ok = process.env.OVERLAY_KEY)
+      wsServer.emit('connection', socket, params.username, params.ok === process.env.OVERLAY_KEY)
     })
   }
 })

@@ -1,18 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Login from '../components/logIn';
+import ControlPanel from '../components/controlPanel';
 
 function Operator() {
-  const [data, setData] = useState(null);
+  const [connected, setConnected] = useState(false);
+  const [client, setClient] = useState(null);
 
-  useEffect(() => {
-    fetch("/api/operator")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+  const onSubmit = (username, pw) => {
+    var temp = new WebSocket('ws://localhost:3001?pw=' + pw + '&username=' + username);
+
+    temp.onopen = () => { 
+      console.log('WebSocket Client Connected');
+      setConnected(true)
+    };
+    temp.onmessage = (message) => {
+      console.log(message)
+    };
+
+    setClient(temp)
+  }
 
   return (
     <div className="App">
-      <Login/>
+
+      {!connected && <Login onSubmit={onSubmit}/>}
+
+      {connected && <ControlPanel client={client}/>}
+
     </div>
   );
 }

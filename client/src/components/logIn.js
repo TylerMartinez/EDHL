@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Input from '../components/base/input';
+import Input from './base/input';
 import Button from './base/button';
 
-const LoginBase = ({className}) => {
-  const [userName, setUsername] = useState(null);
-  const [pw, setPw] = useState(null)
+const LoginBase = ({className, onSubmit}) => {
+  const [userName, setUsername] = useState("");
+  const [pw, setPw] = useState("")
 
   return (
     <div className={className}>
@@ -19,7 +19,7 @@ const LoginBase = ({className}) => {
         <Input placeholder='Password' onChange={(e) => setPw(e.target.value)}/>
       </div>
       <div>
-        <Button>SUBMIT</Button>
+        <Button disabled={userName === "" || pw === ""} onClick={() => onSubmit(userName, pw)}>SUBMIT</Button>
       </div>
     </div>
   );

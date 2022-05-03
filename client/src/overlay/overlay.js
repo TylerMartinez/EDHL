@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import logo from '../logo.svg';
 import './overlay.css';
 
-const client = new WebSocket('ws://localhost:3001?pw=' + process.env.REACT_APP_DEVPW + '&ok=' + process.env.REACT_APP_OVERLAY_KEY);
-
 function Overlay() {
   const [data, setData] = useState(null);
   const [connected, setConnected] = useState(null);
  
   useEffect(() => {
+    
+    const client = new WebSocket('ws://localhost:3001?pw=' + process.env.REACT_APP_DEVPW + '&ok=' + process.env.REACT_APP_OVERLAY_KEY);
+
     client.onopen = () => { 
       console.log('WebSocket Client Connected');
       setConnected("Connected!")
