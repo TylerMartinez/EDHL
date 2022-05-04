@@ -73,7 +73,10 @@ wsServer.on('connection', (socket, userName, isOverlay) => {
   console.log('connected: ' + userID + ': ' + userNames[userID] + ' in ' + Object.getOwnPropertyNames(clients))
 
   // Handle Messages
-  socket.on('message', (message) => console.log('received: %s', message))
+  socket.on('message', (message) => {
+    console.log('received: %s', message)
+    wsHandler.handleMessage(message.toString(), overlay, clients)
+  })
 
   // Handle disconnections
   socket.on('close', function () {
