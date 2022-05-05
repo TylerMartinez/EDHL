@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Login from '../components/logIn';
+import styled from 'styled-components';
 import ControlPanel from '../components/controlPanel';
 
-function Operator() {
+function OperatorBase({className}) {
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(null);
 
@@ -21,7 +22,7 @@ function Operator() {
   }
 
   return (
-    <div className="App">
+    <div className={className}>
 
       {!connected && <Login onSubmit={onSubmit}/>}
 
@@ -30,5 +31,8 @@ function Operator() {
     </div>
   );
 }
+
+const Operator = styled(OperatorBase)`
+`
 
 export default Operator;

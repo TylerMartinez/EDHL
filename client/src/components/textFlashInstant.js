@@ -12,13 +12,19 @@ const TextFlashInstantBase = ({className, client}) => {
     setMessage("")
   }
 
+  const onKeyPress = (e) => {
+    if (e.charCode === 13) {
+      onSubmit();
+    }
+  }
+
   return (
     <div className={className}>
       <p className="controls-sub-header">
         Text Flash
       </p>
       <div>
-        <Input maxLength={150} value={message} onChange={(e) => setMessage(e.target.value)}/>
+        <Input maxLength={150} value={message} onKeyPress={(e) => onKeyPress(e)} onChange={(e) => setMessage(e.target.value)}/>
       </div>
       <div>
         <Button disabled={message === ""} onClick={() => onSubmit()}>

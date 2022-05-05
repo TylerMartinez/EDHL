@@ -7,16 +7,22 @@ const LoginBase = ({className, onSubmit}) => {
   const [userName, setUsername] = useState("");
   const [pw, setPw] = useState("")
 
+  const onKeyPress = (e) => {
+    if (userName !== "" && pw !== "" && e.charCode === 13) {
+      onSubmit(userName, pw);
+    }
+  }
+
   return (
     <div className={className}>
       <p className="login-header">
         LOG IN:
       </p>
       <div>
-        <Input placeholder='Username' onChange={(e) => setUsername(e.target.value)}/>
+        <Input placeholder='Username' onKeyPress={(e) => onKeyPress(e)} onChange={(e) => setUsername(e.target.value)}/>
       </div>
       <div>
-        <Input placeholder='Password' onChange={(e) => setPw(e.target.value)}/>
+        <Input placeholder='Password' onKeyPress={(e) => onKeyPress(e)} onChange={(e) => setPw(e.target.value)}/>
       </div>
       <div>
         <Button disabled={userName === "" || pw === ""} onClick={() => onSubmit(userName, pw)}>SUBMIT</Button>

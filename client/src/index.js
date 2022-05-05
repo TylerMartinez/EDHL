@@ -10,7 +10,8 @@ import baseTheme from './themes/base_theme';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${props => props.theme.bg1};
+    background-color: ${props => window.location.pathname === '/overlay' ? 'rgba(0,0,0,0)' : props.theme.bg1};
+    text-align: center;
   }
 `
 function renderApp() {

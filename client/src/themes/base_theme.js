@@ -9,7 +9,11 @@ const baseTheme = {
     fieldHighlight: "lime",
     fieldDisabled: "gray",
 
-    text1: "lime"
+    text1: "lime",
+
+    textFlashBase: "lime",
+    textFlashHighlight: "lime",
+    textFlashTime: "3s",
   };
 
   export default baseTheme;
