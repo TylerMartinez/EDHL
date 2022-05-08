@@ -7,7 +7,7 @@ const express = require('express')
 const ws = require('ws')
 const url = require('url')
 const api = require('./routes/api')
-const wsHandler = require('./services/websocketHandler')
+const wsHandler = require('./services/websocketHandlerService')
 
 // Constants
 const PORT = process.env.PORT || 3001
@@ -74,8 +74,8 @@ wsServer.on('connection', (socket, userName, isOverlay) => {
 
   // Handle Messages
   socket.on('message', (message) => {
-    console.log('received: %s', message)
-    wsHandler.handleMessage(message.toString(), overlay, clients)
+    console.log('received: %s from: %s', message, userName)
+    wsHandler.handleMessage(message.toString(), overlay, clients, socket)
   })
 
   // Handle disconnections

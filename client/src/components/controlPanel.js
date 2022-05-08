@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from './base/button';
 import CommandButton from './base/commandButton';
-import Input from './base/input';
 import TextFlashInstant from './textFlashInstant';
+import MESSAGES from '../MESSAGES';
 
 const ControlPanelBase = ({className, client}) => {
   const [currentControl, setCurrentControl] = useState("");
+
+  const onCommanderSelectClick = () =>{
+    client.send(MESSAGES.OPEN_COMMANDER_SELECTION)
+  }
 
   return (
     <div className={className}>
@@ -18,7 +21,7 @@ const ControlPanelBase = ({className, client}) => {
           <CommandButton>
             League Standings
           </CommandButton>
-          <CommandButton>
+          <CommandButton onClick={() => onCommanderSelectClick()}>
             Commander Select
           </CommandButton>
           <CommandButton>
