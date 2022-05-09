@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Login from '../components/logIn';
+import Login from '../components/operator/logIn';
 import styled from 'styled-components';
-import ControlPanel from '../components/controlPanel';
+import ControlPanel from '../components/operator/controlPanel';
 
 function OperatorBase({className}) {
   const [connected, setConnected] = useState(false);
@@ -13,9 +13,6 @@ function OperatorBase({className}) {
     temp.onopen = () => { 
       console.log('WebSocket Client Connected');
       setConnected(true)
-    };
-    temp.onmessage = (message) => {
-      console.log(message)
     };
 
     setClient(temp)

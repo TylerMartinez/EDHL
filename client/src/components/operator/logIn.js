@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Input from './base/input';
-import Button from './base/button';
+import Input from '../base/input';
+import Button from '../base/button';
 
 const LoginBase = ({className, onSubmit}) => {
   const [userName, setUsername] = useState("");

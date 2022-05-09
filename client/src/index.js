@@ -13,6 +13,18 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${props => window.location.pathname === '/overlay' ? 'rgba(0,0,0,0)' : props.theme.bg1};
     text-align: center;
   }
+
+  .controls-header{
+    color: ${props => props.theme.text1};
+
+    text-align: center;
+
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+    font-family: ${props => props.theme.font};
+    font-size: 2em;
+  }
 `
 function renderApp() {
   if(window.location.pathname === '/overlay')
