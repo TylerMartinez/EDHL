@@ -1,10 +1,12 @@
 const sheetsService = require('./googleSheetsService')
 
 // Commands
-const SEND_TEXT_FLASH = 'SEND_TEXT_FLASH@'
-const OPEN_COMMANDER_SELECTION = 'OPEN_COMMANDER_SELECTION@'
-const SEND_STATE_UPDATE = 'SEND_STATE_UPDATE@'
-const UPDATE_STATE = 'UPDATE_STATE!'
+const SEND_TEXT_FLASH = 'SEND_TEXT_FLASH@#'
+const OPEN_COMMANDER_SELECTION = 'OPEN_COMMANDER_SELECTION@#'
+const SEND_STATE_UPDATE = 'SEND_STATE_UPDATE@#'
+const UPDATE_STATE = 'UPDATE_STATE!#'
+const CLEAR_STATE = 'CLEAR_STATE!#'
+const SEND_CLEAR_STATE = 'SEND_CLEAR_STATE@#'
 
 // Websocket handler service
 class WebsocketHandlerService {
@@ -15,7 +17,7 @@ class WebsocketHandlerService {
   }
 
   handleMessage = (message, overlay, clients, sender, senderID) => {
-    const command = message.split('@')[0] + '@'
+    const command = message.split('@#')[0] + '@#'
 
     switch (command) {
       case SEND_TEXT_FLASH:
@@ -24,10 +26,17 @@ class WebsocketHandlerService {
 
       case OPEN_COMMANDER_SELECTION:
         sheetsService.getPlayerDecks(sender, clients)
+        overlay.send(OPEN_COMMANDER_SELECTION)
+        break
+
+      case SEND_CLEAR_STATE:
+        this.propogateToOverlay(message, overlay)
+        this.propogateToOtherClients(CLEAR_STATE, message.split('@#')[1], clients, senderID)
         break
 
       case SEND_STATE_UPDATE:
-        this.propogateToOtherClients(message.split('@')[1], clients, senderID)
+        this.propogateToOverlay(message, overlay)
+        this.propogateToOtherClients(UPDATE_STATE, message.split('@#')[1], clients, senderID)
         break
     }
   }
@@ -36,10 +45,10 @@ class WebsocketHandlerService {
     overlay.send(message)
   }
 
-  propogateToOtherClients = (message, clients, senderID) => {
+  propogateToOtherClients = (command, data, clients, senderID) => {
     for (const [key, value] of Object.entries(clients)) {
       if (key !== senderID) {
-        value.send(UPDATE_STATE + message)
+        value.send(command + data)
       }
     }
   }

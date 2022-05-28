@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CommandButton from '../base/commandButton';
+import Button from '../base/button';
 import TextFlashInstant from '../operator/textFlashInstant';
 import MESSAGES from '../../MESSAGES';
 import CommanderSelection from './commanderSelection';
@@ -13,12 +14,18 @@ const ControlPanelBase = ({className, client}) => {
     client.send(MESSAGES.OPEN_COMMANDER_SELECTION)
   }
 
+  const onClearClick = () =>{
+    client.send(MESSAGES.SEND_CLEAR_STATE)
+    setCurrentControl("")
+    setCurrentControlState({})
+  }
+
   useEffect(() => {
     client.onmessage = (message) => {
       console.log(message)
 
-      const command = message.data.split('!')[0] + "!"
-      const data = JSON.parse(message.data.split('!')[1])
+      const command = message.data.split('!#')[0] + "!#"
+      const data = JSON.parse(message.data.split('!#')[1])
 
       switch(command) {
         case MESSAGES.PLAYER_DECKS:
@@ -33,6 +40,11 @@ const ControlPanelBase = ({className, client}) => {
         case MESSAGES.UPDATE_STATE:
           setCurrentControlState(data)
           break;
+
+        case MESSAGES.CLEAR_STATE:
+          setCurrentControl("")
+          setCurrentControlState({})
+          break;
         
         default:
       }
@@ -44,6 +56,7 @@ const ControlPanelBase = ({className, client}) => {
       <p className="controls-header">
         Control Panel
       </p>
+
       {currentControl === "" &&
         <div>
           <CommandButton>
@@ -55,6 +68,12 @@ const ControlPanelBase = ({className, client}) => {
           <CommandButton>
             Card Spotlight
           </CommandButton>
+        </div>
+      }
+
+      {currentControl !== "" && 
+        <div className='clear-state'>
+          <Button onClick={() => onClearClick()}>CLEAR SCREEN</Button>
         </div>
       }
 
@@ -96,6 +115,12 @@ const ControlPanel = styled(ControlPanelBase)`
 
   .instant-drawer{
 
+  }
+
+  .clear-state {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 `
 

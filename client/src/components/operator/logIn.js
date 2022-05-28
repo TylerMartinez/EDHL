@@ -4,8 +4,8 @@ import Input from '../base/input';
 import Button from '../base/button';
 
 const LoginBase = ({className, onSubmit}) => {
-  const [userName, setUsername] = useState("");
-  const [pw, setPw] = useState("")
+  const [userName, setUsername] = useState("Tyler");
+  const [pw, setPw] = useState("sup")
 
   const onKeyPress = (e) => {
     if (userName !== "" && pw !== "" && e.charCode === 13) {

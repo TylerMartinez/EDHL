@@ -1,4 +1,4 @@
-const PLAYER_DECKS = 'PLAYER_DECKS!'
+const PLAYER_DECKS = 'PLAYER_DECKS!#'
 
 const { google } = require('googleapis')
 
@@ -44,8 +44,10 @@ class GoogleSheetService {
             })
           }
 
+          const temp = JSON.stringify(deckLists)
+
           Object.keys(clients).forEach(key => {
-            clients[key].send(PLAYER_DECKS + JSON.stringify(deckLists))
+            clients[key].send(PLAYER_DECKS + temp)
           })
         }
       }

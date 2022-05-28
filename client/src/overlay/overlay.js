@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextFlash from '../components/overlay/textFlash';
+import CommanderSelectionDisplay from '../components/overlay/commanderSelectionDisplay';
 import MESSAGES from '../MESSAGES';
 import './overlay.css';
 
 function OverlayBase({className}) {
   const [connected, setConnected] = useState(null);
   const [instants, updateInstants] = useState([]);
+  const [currentControl, setCurrentControl] = useState("");
+  const [currentControlState, setCurrentControlState] = useState({});
 
   const client = new WebSocket('ws://localhost:3001?pw=' + process.env.REACT_APP_DEVPW + '&ok=' + process.env.REACT_APP_OVERLAY_KEY);
 
@@ -25,8 +28,8 @@ function OverlayBase({className}) {
   }
 
   const handleCommand = (message) => {
-    const command = message.data.split('@')[0] + '@'
-    const text = message.data.split('@')[1]
+    const command = message.data.split('@#')[0] + '@#'
+    const text = message.data.split('@#')[1]
 
     switch(command) {
       case MESSAGES.SEND_TEXT_FLASH:
@@ -42,12 +45,26 @@ function OverlayBase({className}) {
         ])
         break;
 
+      case MESSAGES.OPEN_COMMANDER_SELECTION:
+        setCurrentControl("commander_selection");
+        break;
+
+      case MESSAGES.SEND_CLEAR_STATE:
+        setCurrentControl("");
+        setCurrentControlState({});
+        break;
+        
+      case MESSAGES.SEND_STATE_UPDATE:
+        setCurrentControlState(JSON.parse(text))
+        break;
+
       default:
     }
   }  
 
   return (
     <div className={className}>
+      <CommanderSelectionDisplay intialState={currentControlState} visible={currentControl === "commander_selection"}/>
       {instants}
     </div>
   );
