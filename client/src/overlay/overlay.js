@@ -64,7 +64,7 @@ function OverlayBase({className}) {
 
   return (
     <div className={className}>
-      <CommanderSelectionDisplay intialState={currentControlState} visible={currentControl === "commander_selection"}/>
+      <CommanderSelectionDisplay initialState={currentControlState} visible={currentControl === "commander_selection"}/>
       {instants}
     </div>
   );
