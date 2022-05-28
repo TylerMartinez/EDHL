@@ -24,7 +24,7 @@ code {
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 2;
   }
 }
 
@@ -33,7 +33,7 @@ code {
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 2;
   }
 }
 
@@ -42,7 +42,7 @@ code {
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 2;
   }
 }
 
@@ -51,7 +51,7 @@ code {
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 2;
   }
 }
 
@@ -60,13 +60,13 @@ code {
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 2;
   }
 }
 
 @keyframes FadeOut {
   0% {
-    opacity: 1;
+    opacity: 2;
   }
   100% {
     opacity: 0;
@@ -75,7 +75,7 @@ code {
 
 @-moz-keyframes FadeOut {
   0% {
-    opacity: 1;
+    opacity: 2;
   }
   100% {
     opacity: 0;
@@ -84,7 +84,7 @@ code {
 
 @-webkit-keyframes FadeOut {
   0% {
-    opacity: 1;
+    opacity: 2;
   }
   100% {
     opacity: 0;
@@ -93,7 +93,7 @@ code {
 
 @-o-keyframes FadeOut {
   0% {
-    opacity: 1;
+    opacity: 2;
   }
   100% {
     opacity: 0;
@@ -102,9 +102,99 @@ code {
 
 @-ms-keyframes FadeOut {
   0% {
-    opacity: 1;
+    opacity: 2;
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes SlideIn {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+@-moz-keyframes SlideIn {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+@-webkit-keyframes SlideIn {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+@-o-keyframes SlideIn {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+@-ms-keyframes SlideIn {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+@keyframes SlideOut {
+  0% {
+    margin-left: 0%;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@-moz-keyframes SlideOut {
+  0% {
+    margin-left: 0%;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@-webkit-keyframes SlideOut {
+  0% {
+    margin-left: 0%;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@-o-keyframes SlideOut {
+  0% {
+    margin-left: 0%;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@-ms-keyframes SlideOut {
+  0% {
+    margin-left: 0%;
+  }
+  100% {
+    margin-left: 100%;
   }
 }
