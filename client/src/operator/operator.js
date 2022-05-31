@@ -8,7 +8,7 @@ function OperatorBase({className}) {
   const [client, setClient] = useState(null);
 
   const onSubmit = (username, pw) => {
-    var temp = new WebSocket('ws://localhost:3001?pw=' + pw + '&username=' + username);
+    var temp = new WebSocket('ws://' + window.location.host +'?pw=' + pw + '&username=' + username);
 
     temp.onopen = () => { 
       console.log('WebSocket Client Connected');

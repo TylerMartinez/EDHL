@@ -64,6 +64,7 @@ function OverlayBase({className}) {
 
   return (
     <div className={className}>
+      {connected == null && "TRYING TO CONNECT IF THIS IS NOT CONNECTING SOME ONE IS ALREADY LOOKING AT THE OVERLAY, TRY AGAIN LATER"}
       <CommanderSelectionDisplay initialState={currentControlState} visible={currentControl === "commander_selection"}/>
       {instants}
     </div>
