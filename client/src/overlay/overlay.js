@@ -11,7 +11,7 @@ function OverlayBase({className}) {
   const [currentControl, setCurrentControl] = useState("");
   const [currentControlState, setCurrentControlState] = useState({});
 
-  const client = new WebSocket('ws://localhost:3001?pw=' + process.env.REACT_APP_DEVPW + '&ok=' + process.env.REACT_APP_OVERLAY_KEY);
+  const client = new WebSocket('ws://' + window.location.host + '?pw=' + process.env.REACT_APP_DEVPW + '&ok=' + process.env.REACT_APP_OVERLAY_KEY);
 
   client.onopen = () => { 
     console.log('WebSocket Client Connected');

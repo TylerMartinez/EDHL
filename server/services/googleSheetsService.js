@@ -17,7 +17,8 @@ class GoogleSheetService {
         'Player Decks!A4:A50',
         'Player Decks!B4:B50',
         'Player Decks!C4:C50',
-        'Player Decks!D4:D50'
+        'Player Decks!D4:D50',
+        'Player Decks!E4:E50'
       ]
     }
 
