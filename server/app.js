@@ -8,6 +8,7 @@ const ws = require('ws')
 const url = require('url')
 const api = require('./routes/api')
 const wsHandler = require('./services/websocketHandlerService')
+const container = require('./container.js')()
 
 // Constants
 const PORT = process.env.PORT || 3001
@@ -15,6 +16,8 @@ const env = process.env.NODE_ENV || 'production'
 const maxConnections = parseInt(process.env.MAX_CONNECTIONS)
 const clients = {}
 const userNames = {}
+
+console.log(container.cradle.DB_CONNECTION_STRING)
 
 // Variable
 let overlay = null

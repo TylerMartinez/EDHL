@@ -37,6 +37,7 @@ const Login = styled(LoginBase)`
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  animation: flicker 1.5s infinite alternate;  
 
   .login-header{
     color: ${props => props.theme.text1};

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CommandButton from '../base/commandButton';
 import Button from '../base/button';
-import TextFlashInstant from '../operator/textFlashInstant';
+import TextFlashInstant from './textFlashInstant';
 import MESSAGES from '../../MESSAGES';
 import CommanderSelection from './commanderSelection';
 

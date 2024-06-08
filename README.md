@@ -1,5 +1,5 @@
-# EDHL-Overlay
-An overlay generator based on a Google Sheet ran EDH League meant to be used by OBS streams/recordings
+# EDHL
+A webapp that supports running an EDH league
 
 # Pre-Reqs
 Intall node 16.14.0, I use a node version manager cli called nvm.

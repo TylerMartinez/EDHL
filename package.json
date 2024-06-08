@@ -25,9 +25,12 @@
   },
   "homepage": "https://github.com/TylerMartinez/EDHL-Overlay#readme",
   "dependencies": {
+    "awilix": "^10.0.2",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "googleapis": "^100.0.0",
+    "install": "^0.13.0",
+    "npm": "^10.8.1",
     "ws": "^8.5.0"
   },
   "devDependencies": {

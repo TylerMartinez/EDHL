@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Operator from './operator/operator';
-import Overlay from './overlay/overlay';
+import Operator from './operator/operator.jsx';
+import Overlay from './overlay/overlay.jsx';
 import reportWebVitals from './reportWebVitals'; 
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import baseTheme from './themes/base_theme';
