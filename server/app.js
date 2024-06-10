@@ -26,7 +26,7 @@ let overlay = null
 const app = express()
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')))
+app.use(express.static(path.resolve(__dirname, '../client/dist')))
 
 // Do some fancy reloading for dev mode
 if (env === 'development') {
@@ -49,7 +49,7 @@ app.use('/api', api)
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'))
 })
 
 // Start server

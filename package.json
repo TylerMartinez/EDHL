@@ -31,6 +31,7 @@
     "googleapis": "^100.0.0",
     "install": "^0.13.0",
     "npm": "^10.8.1",
+    "typescript": "^5.4.5",
     "ws": "^8.5.0"
   },
   "devDependencies": {
