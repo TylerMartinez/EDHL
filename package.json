@@ -4,10 +4,12 @@
   "description": "An overlay generator based on a Google Sheet ran EDH League meant to be used by OBS streams/recordings",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env-shell NODE_ENV=development \"npm run build && npm-run-all -p server watch\"",
+    "dev": "npm run build && npm-run-all -p server-dev watch",
     "start": "npm run build && npm run server",
+    "start-dev": "ts-node ./server/app.ts",
     "build": "cd client && npm install && npm run build",
-    "server": "nodemon --ignore client server/app.js",
+    "server-dev": "nodemon",
+    "server": "cd server && tsc && node ../dist/app.js",
     "watch": "cd client && npm run watch"
   },
   "engines": {
@@ -35,7 +37,9 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
-    "connect-livereload": "^0.6.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.21",
+    "@types/ws": "^8.5.12",
     "cross-env": "^7.0.3",
     "eslint": "^8.14.0",
     "eslint-config-standard": "^17.0.0",
@@ -43,7 +47,7 @@
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
-    "livereload": "^0.9.3",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^10.9.2"
   }
 }

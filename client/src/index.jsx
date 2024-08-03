@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
 
     font-family: ${props => props.theme.font};
     font-size: 2em;
-  }
+  }  
 `
 function renderApp() {
   if(window.location.pathname === '/overlay')

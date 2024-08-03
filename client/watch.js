@@ -1,7 +1,7 @@
 const chokidar = require('chokidar');
 const { exec } = require("child_process")
 const fs = require('fs');
-const filename = '../server/app.js';
+const filename = '../server/app.ts';
 const time = new Date();
 
 // Watching changes then rebuilding the react app and triggering the server nodedemon to reload

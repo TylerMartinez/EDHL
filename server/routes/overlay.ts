@@ -1,8 +1,8 @@
-const express = require('express')
+import express from "express"
 const router = express.Router()
 
 router.get('/', function (req, res) {
-  res.send('Operator homepage')
+  res.send('Overlay homepage')
 })
 
 module.exports = router

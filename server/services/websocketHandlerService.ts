@@ -1,4 +1,4 @@
-const sheetsService = require('./googleSheetsService')
+import { WebSocket } from "ws"
 
 // Commands
 const SEND_TEXT_FLASH = 'SEND_TEXT_FLASH@#'
@@ -10,13 +10,14 @@ const SEND_CLEAR_STATE = 'SEND_CLEAR_STATE@#'
 
 // Websocket handler service
 class WebsocketHandlerService {
+
   // Returns a unique id for websocket clients
-  getUniqueID = () => {
+  public getUniqueID(): string {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
     return s4() + s4() + '-' + s4()
   }
 
-  handleMessage = (message, overlay, clients, sender, senderID) => {
+  public handleMessage(message: string, overlay: WebSocket, clients: Map<string, WebSocket>, sender: WebSocket, senderID: string) {
     const command = message.split('@#')[0] + '@#'
 
     switch (command) {
@@ -25,7 +26,6 @@ class WebsocketHandlerService {
         break
 
       case OPEN_COMMANDER_SELECTION:
-        sheetsService.getPlayerDecks(sender, clients)
         overlay.send(OPEN_COMMANDER_SELECTION)
         break
 
@@ -41,11 +41,11 @@ class WebsocketHandlerService {
     }
   }
 
-  propogateToOverlay = (message, overlay) => {
+  private propogateToOverlay(message: String, overlay: WebSocket) {
     overlay.send(message)
   }
 
-  propogateToOtherClients = (command, data, clients, senderID) => {
+  private propogateToOtherClients (command: string, data: string, clients: Map<string, WebSocket>, senderID: string) {
     for (const [key, value] of Object.entries(clients)) {
       if (key !== senderID) {
         value.send(command + data)
@@ -54,4 +54,4 @@ class WebsocketHandlerService {
   }
 }
 
-module.exports = new WebsocketHandlerService()
+export = new WebsocketHandlerService()
