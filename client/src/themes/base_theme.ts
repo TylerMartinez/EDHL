@@ -1,4 +1,6 @@
-const baseTheme = {
+import { DefaultTheme } from "styled-components";
+
+const baseTheme: DefaultTheme = {
     font: "DotGothic",
   
     bg1: "black",

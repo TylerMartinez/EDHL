@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+type TextFlashState = {
+  className?: string;
+  text: string; 
+  timeout: number; 
+  onCompletion: Function;
+  top: string;
+  left: string;
+}
 
 const TextFlashBase = ({
   className, 
   text, 
   timeout, 
   onCompletion,
-  top,
-  left,
-}) => {
+}: TextFlashState) => {
   const [timeoutSet, setTimeoutSet] = useState(false);
 
   useEffect(() => {
@@ -21,7 +28,7 @@ const TextFlashBase = ({
   return (
     <div className={className}>
       <div className='line'>
-        <p class='pop-outin'>{text}</p>
+        <p className='pop-outin'>{text}</p>
       </div>
     </div>
   );

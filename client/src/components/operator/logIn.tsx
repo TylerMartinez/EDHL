@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../base/input';
 import Button from '../base/button';
 
-const LoginBase = ({className, onSubmit}) => {
+type LoginState = {
+  className?: string;
+  onSubmit: Function;
+}
+
+const LoginBase = ({className, onSubmit}: LoginState) => {
   const [userName, setUsername] = useState("Tyler");
   const [pw, setPw] = useState("sup")
 
-  const onKeyPress = (e) => {
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (userName !== "" && pw !== "" && e.charCode === 13) {
       onSubmit(userName, pw);
     }

@@ -4,7 +4,12 @@ import Input from '../base/input';
 import Button from '../base/button';
 import MESSAGES from '../../MESSAGES'
 
-const TextFlashInstantBase = ({className, client}) => {
+type TextFlashInstantProps = {
+  className?: string;
+  client: WebSocket;
+}
+
+const TextFlashInstantBase = ({className, client}: TextFlashInstantProps) => {
   const [message, setMessage] = useState("");
 
   const onSubmit = () => {
@@ -12,7 +17,7 @@ const TextFlashInstantBase = ({className, client}) => {
     setMessage("")
   }
 
-  const onKeyPress = (e) => {
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.charCode === 13) {
       onSubmit();
     }

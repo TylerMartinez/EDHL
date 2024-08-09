@@ -5,7 +5,14 @@ import r from '../../images/mana-r.png';
 import b from '../../images/mana-b.png';
 import g from '../../images/mana-g.png';
 
-const ColorIdentityBase = ({ className, colors=[], height}) => {
+type ColorIdentityProps = {
+  className?: string;
+  colors: string[];
+  height: number;
+}
+
+const ColorIdentityBase = 
+({ className, colors=[], height}: ColorIdentityProps): JSX.Element => {
 
   return (
     <div className={className}>

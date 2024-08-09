@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Operator from './operator/operator.jsx';
-import Overlay from './overlay/overlay.jsx';
-import reportWebVitals from './reportWebVitals'; 
+import Operator from './operator/operator.js';
+import Overlay from './overlay/overlay.js';
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import baseTheme from './themes/base_theme';
+import baseTheme from './themes/base_theme.js';
 
 
 const GlobalStyle = createGlobalStyle`

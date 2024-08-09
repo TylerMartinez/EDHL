@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CommandButton from '../base/commandButton';
 import Button from '../base/button';
 import TextFlashInstant from './textFlashInstant';
 import MESSAGES from '../../MESSAGES';
-import CommanderSelection from './commanderSelection';
+import CommanderSelection, { CommanderSelectionState } from './commanderSelection';
 
-const ControlPanelBase = ({className, client}) => {
+type ControlPanelProps = {
+  className?: string;
+  client: WebSocket;
+}
+
+const ControlPanelBase = ({className, client}: ControlPanelProps) => {
   const [currentControl, setCurrentControl] = useState("");
-  const [currentControlState, setCurrentControlState] = useState({});
+  const [currentControlState, setCurrentControlState] = useState<CommanderSelectionState>({decklists: []});
 
   const onCommanderSelectClick = () =>{
     client.send(MESSAGES.OPEN_COMMANDER_SELECTION)
@@ -17,7 +22,7 @@ const ControlPanelBase = ({className, client}) => {
   const onClearClick = () =>{
     client.send(MESSAGES.SEND_CLEAR_STATE)
     setCurrentControl("")
-    setCurrentControlState({})
+    setCurrentControlState({decklists: []})
   }
 
   useEffect(() => {
@@ -43,7 +48,7 @@ const ControlPanelBase = ({className, client}) => {
 
         case MESSAGES.CLEAR_STATE:
           setCurrentControl("")
-          setCurrentControlState({})
+          setCurrentControlState({ decklists: [] })
           break;
         
         default:
@@ -78,7 +83,7 @@ const ControlPanelBase = ({className, client}) => {
       }
 
       {currentControl === "commanderSelection" &&
-        <CommanderSelection intialState={currentControlState} client={client}/>
+        <CommanderSelection initialState={currentControlState} client={client}/>
       }
 
       <div className='instants'>

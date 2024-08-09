@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Login from '../components/operator/logIn';
 import styled from 'styled-components';
 import ControlPanel from '../components/operator/controlPanel';
 
-function OperatorBase({className}) {
-  const [connected, setConnected] = useState(false);
-  const [client, setClient] = useState(null);
+type OperatorState = {
+  className?: string;
+}
 
-  const onSubmit = (username, pw) => {
+function OperatorBase({className}: OperatorState) {
+  const [connected, setConnected] = useState(false);
+  const [client, setClient] = useState<WebSocket | null>(null);
+
+  const onSubmit = (username: string, pw: string) => {
     var temp = new WebSocket('ws://' + window.location.host +'?pw=' + pw + '&username=' + username);
 
     temp.onopen = () => { 
@@ -23,7 +27,7 @@ function OperatorBase({className}) {
 
       {!connected && <Login onSubmit={onSubmit}/>}
 
-      {connected && <ControlPanel client={client}/>}
+      {connected && <ControlPanel client={client!}/>}
 
     </div>
   );

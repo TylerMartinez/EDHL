@@ -1,7 +1,16 @@
 import styled from 'styled-components';
 import ColorIdentity from './colorIdentity';
+import { Card } from './common';
 
-const CommanderSelectionSliderBase = ({ className, player, playerDeck, playerCard, playerNumber}) => {
+type CommanderSelectionSliderProps = {
+  className?: string;
+  player: string;
+  playerDeck: string;
+  playerCard: Card | null;
+  playerNumber: number;
+}
+
+const CommanderSelectionSliderBase = ({ className, player, playerDeck, playerCard, playerNumber}: CommanderSelectionSliderProps) => {
 
   return (
     <div className={player ? className + " slider slide-in" : className + " slider slide-out"}>
@@ -20,14 +29,14 @@ const CommanderSelectionSliderBase = ({ className, player, playerDeck, playerCar
         </p>
         <p className={playerDeck !== "" ? "wipe-text-commander wipe-delay" : " wipe-text-commander-delay"}>{playerDeck.split("::")[1]}</p>
       </div>
-      {playerCard.colors && 
+      {playerCard && playerCard.colors && 
         <div className={playerCard.colors ? "player-identity fade-in-delay" : " player-identity"}>
           <ColorIdentity colors={playerCard.colors} height={50}/>
         </div>
       }
-      {playerCard.image && 
+      {playerCard && playerCard.image && 
         <div className='player-card'>
-          <img className={playerCard !== "" ? 'card picture-grow' : 'card'} src={playerCard.image} alt="Commander Art"/>
+          <img className={playerCard !== null ? 'card picture-grow' : 'card'} src={playerCard.image} alt="Commander Art"/>
         </div>
       }
     </div>     

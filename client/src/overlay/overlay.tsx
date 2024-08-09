@@ -4,14 +4,19 @@ import TextFlash from '../components/overlay/textFlash';
 import CommanderSelectionDisplay from '../components/overlay/commanderSelectionDisplay';
 import MESSAGES from '../MESSAGES';
 import './overlay.css';
+import { CommanderSelectionState } from '../components/operator/commanderSelection';
 
-function OverlayBase({className}) {
-  const [connected, setConnected] = useState(null);
-  const [instants, updateInstants] = useState([]);
+type OverlayState = {
+  className?: string;
+}
+
+function OverlayBase({className}: OverlayState) {
+  const [connected, setConnected] = useState("");
+  const [instants, updateInstants] = useState<React.ReactElement[]>([]);
   const [currentControl, setCurrentControl] = useState("");
-  const [currentControlState, setCurrentControlState] = useState({});
+  const [currentControlState, setCurrentControlState] = useState<CommanderSelectionState>({decklists: [] });
 
-  const client = new WebSocket('ws://' + window.location.host + '?pw=' + process.env.REACT_APP_DEVPW + '&ok=' + process.env.REACT_APP_OVERLAY_KEY);
+  const client = new WebSocket('ws://' + window.location.host + '?pw=sup&ok=yee');
 
   client.onopen = () => { 
     console.log('WebSocket Client Connected');
@@ -27,7 +32,7 @@ function OverlayBase({className}) {
     updateInstants( instants => instants.slice(1))
   }
 
-  const handleCommand = (message) => {
+  const handleCommand = (message: MessageEvent) => {
     const command = message.data.split('@#')[0] + '@#'
     const text = message.data.split('@#')[1]
 
@@ -51,7 +56,7 @@ function OverlayBase({className}) {
 
       case MESSAGES.SEND_CLEAR_STATE:
         setCurrentControl("");
-        setCurrentControlState({});
+        setCurrentControlState({decklists: [] });
         break;
         
       case MESSAGES.SEND_STATE_UPDATE:

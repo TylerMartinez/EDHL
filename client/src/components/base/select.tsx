@@ -1,6 +1,10 @@
 import styled from 'styled-components'
  
-const Select = styled.select`
+interface SelectProps {
+  placeholder?: string;
+}
+
+const Select = styled.select<SelectProps>`
   color: ${props => props.theme.text1};
   border: 2px solid ${props => props.theme.fieldHighlight};
   background: ${props => props.theme.fieldBg1};

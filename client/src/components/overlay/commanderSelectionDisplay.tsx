@@ -1,45 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CommanderSelectionSlider from './commanderSelectionSlider';
+import { CommanderSelectionState } from '../operator/commanderSelection';
+import { Card } from './common';
 
-const CommanderSelectionDisplayBase = ({ className, initialState, visible }) => {
-  const [state, setState] = useState({});
-  const [player1Card, setPlayer1Card] = useState({});
-  const [player2Card, setPlayer2Card] = useState({});
-  const [player3Card, setPlayer3Card] = useState({});
-  const [player4Card, setPlayer4Card] = useState({});
+type CommanderSelectionDisplayProps = {
+  className?: string;
+  initialState: CommanderSelectionState;
+  visible: boolean;
+}
+
+
+const CommanderSelectionDisplayBase = ({ className, initialState, visible }: CommanderSelectionDisplayProps) => {
+  const [state, setState] = useState<CommanderSelectionState>({decklists: [] });
+  const [player1Card, setPlayer1Card] = useState<Card | null>(null);
+  const [player2Card, setPlayer2Card] = useState<Card | null>(null);
+  const [player3Card, setPlayer3Card] = useState<Card | null>(null);
+  const [player4Card, setPlayer4Card] = useState<Card | null>(null);
 
   useEffect(() => {
     setState(prev => {
       if(initialState && initialState.player1Deck && initialState.player1Deck !== prev.player1Deck){
-        fetchCard(initialState.decklists[initialState.player1].decks[initialState.player1Deck][0].split("::")[1], setPlayer1Card)
+        fetchCard(initialState!.decklists![initialState.player1!].decks[initialState.player1Deck][0].split("::")[1], setPlayer1Card)
       } else if (initialState && !initialState.player1Deck){
-        setPlayer1Card({})
+        setPlayer1Card(null)
       }
 
       if(initialState && initialState.player2Deck && initialState.player2Deck !== prev.player2Deck){
-        fetchCard(initialState.decklists[initialState.player2].decks[initialState.player2Deck][0].split("::")[1], setPlayer2Card)
+        fetchCard(initialState!.decklists![initialState.player2!].decks[initialState.player2Deck][0].split("::")[1], setPlayer2Card)
       } else if (initialState && !initialState.player2Deck){
-        setPlayer2Card({})
+        setPlayer2Card(null)
       }
 
       if(initialState && initialState.player3Deck && initialState.player3Deck !== prev.player3Deck){
-        fetchCard(initialState.decklists[initialState.player3].decks[initialState.player3Deck][0].split("::")[1], setPlayer3Card)
+        fetchCard(initialState!.decklists![initialState.player3!].decks[initialState.player3Deck][0].split("::")[1], setPlayer3Card)
       } else if (initialState && !initialState.player3Deck){
-        setPlayer3Card({})
+        setPlayer3Card(null)
       }
 
       if(initialState && initialState.player4Deck && initialState.player4Deck !== prev.player4Deck){
-        fetchCard(initialState.decklists[initialState.player4].decks[initialState.player4Deck][0].split("::")[1], setPlayer4Card)
+        fetchCard(initialState!.decklists![initialState.player4!].decks[initialState.player4Deck][0].split("::")[1], setPlayer4Card)
       } else if (initialState && !initialState.player4Deck){
-        setPlayer4Card({})
+        setPlayer4Card(null)
       }
 
       return initialState
     })
   }, [initialState])
 
-  const fetchCard = (name, setFunction) =>{
+  const fetchCard = (name: string, setFunction: Function) => {
     fetch("https://api.scryfall.com/cards/named?exact=" + name)
     .then(res => { 
       return res.json()
@@ -69,26 +78,26 @@ const CommanderSelectionDisplayBase = ({ className, initialState, visible }) => 
         </p>
         <div className='sliders'>
           <CommanderSelectionSlider 
-            player={state.player1 ? state.decklists[state.player1].player[0] : ""}
-            playerDeck={state.player1Deck ? state.decklists[state.player1].decks[state.player1Deck][0] : ""}
+            player={state.player1 ? state.decklists![state.player1].player[0] : ""}
+            playerDeck={state.player1Deck ? state.decklists![state.player1!].decks[state.player1Deck][0] : ""}
             playerCard={player1Card}
             playerNumber={1}
           />
           <CommanderSelectionSlider 
-            player={state.player2 ? state.decklists[state.player2].player[0] : ""}
-            playerDeck={state.player2Deck ? state.decklists[state.player2].decks[state.player2Deck][0] : ""}
+            player={state.player2 ? state.decklists![state.player2].player[0] : ""}
+            playerDeck={state.player2Deck ? state.decklists![state.player2!].decks[state.player2Deck][0] : ""}
             playerCard={player2Card}
             playerNumber={2}
           />
           <CommanderSelectionSlider 
-            player={state.player3 ? state.decklists[state.player3].player[0] : ""}
-            playerDeck={state.player3Deck ? state.decklists[state.player3].decks[state.player3Deck][0] : ""}
+            player={state.player3 ? state.decklists![state.player3].player[0] : ""}
+            playerDeck={state.player3Deck ? state.decklists![state.player3!].decks[state.player3Deck][0] : ""}
             playerCard={player3Card}
             playerNumber={3}
           />
           <CommanderSelectionSlider 
-            player={state.player4 ? state.decklists[state.player4].player[0] : ""}
-            playerDeck={state.player4Deck ? state.decklists[state.player4].decks[state.player4Deck][0] : ""}
+            player={state.player4 ? state.decklists![state.player4].player[0] : ""}
+            playerDeck={state.player4Deck ? state.decklists![state.player4!].decks[state.player4Deck][0] : ""}
             playerCard={player4Card}
             playerNumber={4}
           />
